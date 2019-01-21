@@ -32,6 +32,7 @@ void screen_init(void)
   /* 512x512 16 colors 31kHz */
   _iocs_crtmod(4);
   _iocs_g_clr_on();
+  _iocs_b_curoff();
   screen_clear();
 }
 
@@ -45,6 +46,7 @@ void screen_update_colors(void)
     {
       palet(i,X68_GRB(palette[i].red,palette[i].green,palette[i].blue,0));
     }
+
 }
 
 /**

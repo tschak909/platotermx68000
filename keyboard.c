@@ -27,16 +27,34 @@ void keyboard_out(int platoKey)
 void keyboard_main(void)
 {
   padByte ch[1];
+  padByte sc[1];
+  int inp;
+  int modifier=_iocs_b_sftsns();
   if (_iocs_b_keysns())
     {
-      ch[0] = _iocs_b_keyinp()&0xFF;
+      inp=_iocs_b_keyinp();
+      ch[0] = inp&0xFF;
+      sc[0] = inp>>8;
       if (TTY)
       	{
       	  keyboard_out_tty(ch[0]);
       	}
       else
       	{
-      	  keyboard_out(key_to_pkey[(ch[0])]);
+	  if ((ch[0]==0x0d) && (modifier & 1))
+	    keyboard_out(PKEY_NEXT1);
+	  else if ((sc[0]==54) && (modifier & 1))
+	    keyboard_out(PKEY_HELP1);
+	  else if ((sc[0]==54))
+	    keyboard_out(PKEY_HELP);
+	  else if (modifier & 2) /* CTRL pressed */
+	    {
+	      if (modifier & 1)
+		ch[0]|=0x80;
+	      keyboard_out(ctrl_key_to_pkey[ch[0]]);
+	    }
+	  else
+	    keyboard_out(key_to_pkey[(ch[0])]);
       	}
     }
 }

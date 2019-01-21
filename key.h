@@ -7,21 +7,21 @@
 
 int key_to_pkey[]={
     PKEY_NOKEY, /* 0x00 NUL */
-    PKEY_UNION, /* 0x01 CTRL-A */
-    PKEY_ASSIGN, /* 0x02 CTRL-B */
-    PKEY_COPY, /* 0x03 CTRL-C */
-    PKEY_DATA, /* 0x04 CTRL-D */
-    PKEY_SIGMA, /* 0x05 CTRL-E */
-    PKEY_MULTIPLY, /* 0x06 CTRL-F */
-    PKEY_TERM, /* 0x07 CTRL-G */
-    PKEY_ERASE, /* 0x08 CTRL-H */
+    PKEY_NOKEY, /* 0x01 CTRL-A */
+    PKEY_NOKEY, /* 0x02 CTRL-B */
+    PKEY_NOKEY, /* 0x03 CTRL-C */
+    PKEY_NOKEY, /* 0x04 CTRL-D */
+    PKEY_NOKEY, /* 0x05 CTRL-E */
+    PKEY_NOKEY, /* 0x06 CTRL-F */
+    PKEY_NOKEY, /* 0x07 CTRL-G */
+    PKEY_NOKEY, /* 0x08 CTRL-H */
     PKEY_NOKEY, /* 0x09 CTRL-I */
     PKEY_NOKEY, /* 0x0a CTRL-J */
     PKEY_NOKEY, /* 0x0b CTRL-K */
     PKEY_NOKEY, /* 0x0c CTRL-L */
     PKEY_NEXT, /* 0x0d CTRL-M */
-    PKEY_EDIT, /* 0x0e CTRL-N */
-    PKEY_BACK, /* 0x0f CTRL-O */
+    PKEY_NOKEY, /* 0x0e CTRL-N */
+    PKEY_NOKEY, /* 0x0f CTRL-O */
     PKEY_NOKEY, /* 0x10 CTRL-P */
     PKEY_NOKEY, /* 0x11 CTRL-Q */
     PKEY_NOKEY, /* 0x12 CTRL-R */
@@ -33,7 +33,7 @@ int key_to_pkey[]={
     PKEY_NOKEY, /* 0x18 CTRL-X */
     PKEY_NOKEY, /* 0x19 CTRL-Y */
     PKEY_NOKEY, /* 0x1a CTRL-Z */
-    PKEY_NOKEY, /* 0x1b ESC */
+    PKEY_ASSIGN, /* 0x1b ESC */
     PKEY_NOKEY, /* 0x1c */
     PKEY_NOKEY, /* 0x1d */
     PKEY_NOKEY, /* 0x1e */
@@ -134,38 +134,172 @@ int key_to_pkey[]={
     PKEY_RIGHT_CURLY_BRACE, /* 0x7d } */
     PKEY_TILDE, /* 0x7e ~ */
     PKEY_ERASE, /* 0x7f DEL */
+};
+
+/* CTRL key mappings, |= 0x80 for shifted ctrl-keys */
+/* HELP is handled by a scancode/shift state override */
+/* NEXT/NEXT1 is handled by a scancode/shift state override */
+int ctrl_key_to_pkey[]={
+    PKEY_NOKEY, /* 0x00 NUL */
+    PKEY_ANS, /* 0x01 CTRL-A */
+    PKEY_BACK, /* 0x02 CTRL-B */
+    PKEY_COPY, /* 0x03 CTRL-C */
+    PKEY_DATA, /* 0x04 CTRL-D */
+    PKEY_EDIT, /* 0x05 CTRL-E */
+    PKEY_FONT, /* 0x06 CTRL-F */
+    PKEY_DIVIDE, /* 0x07 CTRL-G */
+    PKEY_ERASE, /* 0x08 CTRL-H */
+    PKEY_NOKEY, /* 0x09 CTRL-I */
+    PKEY_NOKEY, /* 0x0a CTRL-J */
+    PKEY_NOKEY, /* 0x0b CTRL-K */
+    PKEY_LAB, /* 0x0c CTRL-L */
+    PKEY_NEXT, /* 0x0d CTRL-M */
+    PKEY_NEXT, /* 0x0e CTRL-N */
+    PKEY_BACK, /* 0x0f CTRL-O */
+    PKEY_SUPER, /* 0x10 CTRL-P */
+    PKEY_SQUARE, /* 0x11 CTRL-Q */
+    PKEY_ERASE, /* 0x12 CTRL-R */
+    PKEY_STOP, /* 0x13 CTRL-S */
+    PKEY_TERM, /* 0x14 CTRL-T */
+    PKEY_NOKEY, /* 0x15 CTRL-U */
+    PKEY_NOKEY, /* 0x16 CTRL-V */
+    PKEY_NOKEY, /* 0x17 CTRL-W */
+    PKEY_MULTIPLY, /* 0x18 CTRL-X */
+    PKEY_SUB, /* 0x19 CTRL-Y */
+    PKEY_NOKEY, /* 0x1a CTRL-Z */
+    PKEY_NOKEY, /* 0x1b ESC */
+    PKEY_NOKEY, /* 0x1c */
+    PKEY_NOKEY, /* 0x1d */
+    PKEY_NOKEY, /* 0x1e */
+    PKEY_NOKEY, /* 0x1f */
+    PKEY_BACKSPACE, /* 0x20 SPACE */
+    PKEY_NOKEY, /* 0x21 ! */
+    PKEY_NOKEY, /* 0x22 " */
+    PKEY_NOKEY, /* 0x23 # */
+    PKEY_NOKEY, /* 0x24 $ */
+    PKEY_NOKEY, /* 0x25 % */
+    PKEY_NOKEY, /* 0x26 & */
+    PKEY_NOKEY, /* 0x27 ' */
+    PKEY_NOKEY, /* 0x28 ( */
+    PKEY_NOKEY, /* 0x29 ) */
+    PKEY_NOKEY, /* 0x2a * */
+    PKEY_SIGMA, /* 0x2b + */
+    PKEY_NOKEY, /* 0x2c , */
+    PKEY_DELTA, /* 0x2d - */
+    PKEY_NOKEY, /* 0x2e . */
+    PKEY_NOKEY, /* 0x2f / */
+    PKEY_NOKEY, /* 0x30 0 */
+    PKEY_NOKEY, /* 0x31 1 */
+    PKEY_NOKEY, /* 0x32 2 */
+    PKEY_NOKEY, /* 0x33 3 */
+    PKEY_NOKEY, /* 0x34 4 */
+    PKEY_NOKEY, /* 0x35 5 */
+    PKEY_NOKEY, /* 0x36 6 */
+    PKEY_NOKEY, /* 0x37 7 */
+    PKEY_NOKEY, /* 0x38 8 */
+    PKEY_NOKEY, /* 0x39 9 */
+    PKEY_NOKEY, /* 0x3a : */
+    PKEY_NOKEY, /* 0x3b ; */
+    PKEY_NOKEY, /* 0x3c < */
+    PKEY_NOKEY, /* 0x3d = */
+    PKEY_NOKEY, /* 0x3e > */
+    PKEY_NOKEY, /* 0x3f ? */
+    PKEY_NOKEY, /* 0x40 @ */
+    PKEY_NOKEY, /* 0x41 A */
+    PKEY_NOKEY, /* 0x42 B */
+    PKEY_NOKEY, /* 0x43 C */
+    PKEY_NOKEY, /* 0x44 D */
+    PKEY_NOKEY, /* 0x45 E */
+    PKEY_NOKEY, /* 0x46 F */
+    PKEY_NOKEY, /* 0x47 G */
+    PKEY_NOKEY, /* 0x48 H */
+    PKEY_NOKEY, /* 0x49 I */
+    PKEY_NOKEY, /* 0x4a J */
+    PKEY_NOKEY, /* 0x4b K */
+    PKEY_NOKEY, /* 0x4c L */
+    PKEY_NOKEY, /* 0x4d M */
+    PKEY_NOKEY, /* 0x4e N */
+    PKEY_NOKEY, /* 0x4f O */
+    PKEY_NOKEY, /* 0x50 P */
+    PKEY_NOKEY, /* 0x51 Q */
+    PKEY_NOKEY, /* 0x52 R */
+    PKEY_NOKEY, /* 0x53 S */
+    PKEY_NOKEY, /* 0x54 T */
+    PKEY_NOKEY, /* 0x55 U */
+    PKEY_NOKEY, /* 0x56 V */
+    PKEY_NOKEY, /* 0x57 W */
+    PKEY_NOKEY, /* 0x58 X */
+    PKEY_NOKEY, /* 0x59 Y */
+    PKEY_NOKEY, /* 0x5a Z */
+    PKEY_NOKEY, /* 0x5b [ */
+    PKEY_NOKEY, /* 0x5c / */
+    PKEY_NOKEY, /* 0x5d ] */
+    PKEY_NOKEY, /* 0x5e ^ */
+    PKEY_NOKEY, /* 0x5f _ */
+    PKEY_NOKEY, /* 0x60 ` */
+    PKEY_NOKEY, /* 0x61 a */
+    PKEY_NOKEY, /* 0x62 b */
+    PKEY_NOKEY, /* 0x63 c */
+    PKEY_NOKEY, /* 0x64 d */
+    PKEY_NOKEY, /* 0x65 e */
+    PKEY_NOKEY, /* 0x66 f */
+    PKEY_NOKEY, /* 0x67 g */
+    PKEY_NOKEY, /* 0x68 h */
+    PKEY_NOKEY, /* 0x69 i */
+    PKEY_NOKEY, /* 0x6a j */
+    PKEY_NOKEY, /* 0x6b k */
+    PKEY_NOKEY, /* 0x6c l */
+    PKEY_NOKEY, /* 0x6d m */
+    PKEY_NOKEY, /* 0x6e n */
+    PKEY_NOKEY, /* 0x6f o */
+    PKEY_NOKEY, /* 0x70 p */
+    PKEY_NOKEY, /* 0x71 q */
+    PKEY_NOKEY, /* 0x72 r */
+    PKEY_NOKEY, /* 0x73 s */
+    PKEY_NOKEY, /* 0x74 t */
+    PKEY_NOKEY, /* 0x75 u */
+    PKEY_NOKEY, /* 0x76 v */
+    PKEY_NOKEY, /* 0x77 w */
+    PKEY_NOKEY, /* 0x78 x */
+    PKEY_NOKEY, /* 0x79 y */
+    PKEY_NOKEY, /* 0x7a z */
+    PKEY_NOKEY, /* 0x7b { */
+    PKEY_NOKEY, /* 0x7c | */
+    PKEY_NOKEY, /* 0x7d } */
+    PKEY_NOKEY, /* 0x7e ~ */
+    PKEY_NOKEY, /* 0x7f DEL */
     PKEY_NOKEY, /* 0x80 */
     PKEY_ANS, /* 0x81 */
-    PKEY_SUB1, /* 0x82 */
-    PKEY_NOKEY, /* 0x83 */
-    PKEY_NOKEY, /* 0x84 */
-    PKEY_NOKEY, /* 0x85 */
+    PKEY_BACK1, /* 0x82 */
+    PKEY_COPY1, /* 0x83 */
+    PKEY_DATA1, /* 0x84 */
+    PKEY_EDIT1, /* 0x85 */
     PKEY_FONT, /* 0x86 */
-    PKEY_NOKEY, /* 0x87 */
+    PKEY_INTERSECT, /* 0x87 */
     PKEY_HELP1, /* 0x88 */
     PKEY_NOKEY, /* 0x89 */
     PKEY_NOKEY, /* 0x8A */
     PKEY_NOKEY, /* 0x8B */
     PKEY_LAB1, /* 0x8C */
-    PKEY_NOKEY, /* 0x8D */
-    PKEY_SUPER1, /* 0x8E */
+    PKEY_MICRO, /* 0x8D */
+    PKEY_NEXT1, /* 0x8E */
     PKEY_NOKEY, /* 0x8F */
-    PKEY_NOKEY, /* 0x90 */
+    PKEY_SUPER1, /* 0x90 */
     PKEY_ACCESS, /* 0x91 */
-    PKEY_NOKEY, /* 0x92 */
-    PKEY_ERASE1, /* 0x93 */
-    PKEY_NOKEY, /* 0x94 */
+    PKEY_ERASE1, /* 0x92 */
+    PKEY_STOP1, /* 0x93 */
+    PKEY_TERM, /* 0x94 */
     PKEY_NOKEY, /* 0x95 */
     PKEY_NOKEY, /* 0x96 */
     PKEY_NOKEY, /* 0x97 */
     PKEY_NOKEY, /* 0x98 */
-    PKEY_NOKEY, /* 0x99 */
+    PKEY_SUB1, /* 0x99 */
     PKEY_NOKEY, /* 0x9A */
     PKEY_NOKEY, /* 0x9B */
     PKEY_NOKEY, /* 0x9C */
     PKEY_NOKEY, /* 0x9D */
-    PKEY_DIVIDE, /* 0x9E */
-    PKEY_BACK1, /* 0x9F */
+    PKEY_NOKEY, /* 0x9E */
+    PKEY_NOKEY, /* 0x9F */
     PKEY_NOKEY, /* 0xA0 */
     PKEY_NOKEY, /* 0xA1 */
     PKEY_NOKEY, /* 0xA2 */
@@ -182,28 +316,28 @@ int key_to_pkey[]={
     PKEY_NOKEY, /* 0xAD */
     PKEY_NOKEY, /* 0xAE */
     PKEY_NOKEY, /* 0xAF */
-    PKEY_STOP1, /* 0xB0 */
-    PKEY_COPY1, /* 0xB1 */
-    PKEY_DATA1, /* 0xB2 */
+    PKEY_NOKEY, /* 0xB0 */
+    PKEY_NOKEY, /* 0xB1 */
+    PKEY_NOKEY, /* 0xB2 */
     PKEY_NOKEY, /* 0xB3 */
     PKEY_NOKEY, /* 0xB4 */
-    PKEY_EDIT1, /* 0xB5 */
+    PKEY_NOKEY, /* 0xB5 */
     PKEY_NOKEY, /* 0xB6 */
-    PKEY_INTERSECT, /* 0xB7 */
+    PKEY_NOKEY, /* 0xB7 */
     PKEY_NOKEY, /* 0xB8 */
     PKEY_NOKEY, /* 0xB9 */
-    PKEY_DELTA, /* 0xBA */
+    PKEY_NOKEY, /* 0xBA */
     PKEY_NOKEY, /* 0xBB */
-    PKEY_STOP, /* 0xBC */
-    PKEY_NEXT1, /* 0xBD */
-    PKEY_SUB, /* 0xBE */
-    PKEY_HELP, /* 0xBF */
+    PKEY_NOKEY, /* 0xBC */
+    PKEY_NOKEY, /* 0xBD */
+    PKEY_NOKEY, /* 0xBE */
+    PKEY_NOKEY, /* 0xBF */
     PKEY_NOKEY, /* 0xC0 */
     PKEY_NOKEY, /* 0xC1 */
-    PKEY_LAB, /* 0xC2 */
-    PKEY_MICRO, /* 0xC3 */
-    PKEY_SUPER, /* 0xC4 */
-    PKEY_SQUARE, /* 0xC5 */
+    PKEY_NOKEY, /* 0xC2 */
+    PKEY_NOKEY, /* 0xC3 */
+    PKEY_NOKEY, /* 0xC4 */
+    PKEY_NOKEY, /* 0xC5 */
     PKEY_NOKEY, /* 0xC6 */
     PKEY_NOKEY, /* 0xC7 */
     PKEY_NOKEY, /* 0xC8 */
@@ -262,7 +396,5 @@ int key_to_pkey[]={
     PKEY_NOKEY, /* 0xFD */
     PKEY_NOKEY, /* 0xFE */
     PKEY_NOKEY, /* 0xFF */
-
-    
 };
 
