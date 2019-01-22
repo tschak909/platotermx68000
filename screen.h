@@ -96,7 +96,7 @@ void screen_paint(padPt* Coord);
 /**
  * screen_show_baud_rate - Show baud rate
  */
-void screen_show_baud_rate(void);
+void screen_show_baud_rate(int baud);
 
 /**
  * screen_done()

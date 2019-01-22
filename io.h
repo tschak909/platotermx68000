@@ -29,6 +29,11 @@ void io_send_byte(unsigned char b);
 void io_main(void);
 
 /**
+ * io_set_baud(int baud) - Set baud rate
+ */
+void io_set_baud(int baud);
+
+/**
  * io_done() - Called to close I/O
  */
 void io_done(void);

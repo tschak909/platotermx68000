@@ -5,6 +5,7 @@
 #include "protocol.h"
 #include "io.h"
 
+char tmp[64];
 int previousMode;
 unsigned char CharWide=8;
 unsigned char CharHigh=16;
@@ -473,7 +474,17 @@ void screen_clear_status(void)
  */
 void screen_show_status(unsigned char* msg)
 {
+  screen_clear_status();
   symbol(X(0),Y(0),msg,1,1,1,current_foreground,0);
+}
+
+/**
+ * screen_show_baud_rate - Show baud rate
+ */
+void screen_show_baud_rate(int baud)
+{
+  sprintf(tmp,"%d Baud");
+  screen_show_status(tmp);
 }
 
 /**
