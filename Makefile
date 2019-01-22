@@ -7,7 +7,7 @@
 CC=gcc
 CFLAGS=-O0
 
-LIBS=-liocs
+LIBS=-liocs -ldos
 
 OBJS=	screen.o	\
 	protocol.o	\
@@ -15,6 +15,7 @@ OBJS=	screen.o	\
 	io.o		\
 	keyboard.o	\
 	touch.o		\
+	config.o	\
 	main.o
 
 all:	plato.x

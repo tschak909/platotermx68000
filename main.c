@@ -5,6 +5,7 @@
 #include "keyboard.h"
 #include "touch.h"
 #include "splash.h"
+#include "config.h"
 
 #define true 1
 #define false 0
@@ -13,6 +14,7 @@ unsigned char already_started=false;
 
 void main(void)
 {
+  config_init();
   screen_init();
   touch_init();
   ShowPLATO(splash,sizeof(splash));
