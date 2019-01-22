@@ -122,7 +122,7 @@ void screen_clear(void)
 
   wipe();
 
-  fill(0,0,511,511,current_background);
+  /* fill(0,0,511,511,current_background); */
 }
 
 /**
@@ -261,17 +261,17 @@ void screen_char_draw(padPt* Coord, unsigned char* ch, unsigned char count)
 
   if (CurMode==ModeRewrite)
     {
-      altColor=0;
+      altColor=current_background;
     }
   else if (CurMode==ModeInverse)
     {
-      altColor=1;
+      altColor=current_foreground;
     }
   
   if (CurMode==ModeErase || CurMode==ModeInverse)
-    mainColor=0;
+    mainColor=current_background;
   else
-    mainColor=1;
+    mainColor=current_foreground;
 
   x=X(Coord->x&0x1FF);
 
@@ -427,7 +427,9 @@ void screen_tty_char(padByte theChar)
       ec1.y=TTYLoc.y;
       ec2.x=TTYLoc.x+CharWide;
       ec2.y=TTYLoc.y+CharHigh;
+      CurMode=ModeErase;
       screen_block_draw(&ec1,&ec2);
+      CurMode=ModeRewrite;
    }
   else if (theChar == 0x0A)			/* line feed */
     TTYLoc.y -= CharHigh;

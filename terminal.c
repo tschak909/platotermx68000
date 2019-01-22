@@ -84,8 +84,8 @@ void terminal_set_tty(void)
   Rotate=padF;
   Reverse=padF;
   CurMem=M0;
-  /* CurMode=ModeRewrite; */
-  CurMode=ModeWrite;    /* For speed reasons. */
+  CurMode=ModeRewrite;
+  /* CurMode=ModeWrite;    /\* For speed reasons. *\/ */
   CharWide=8;
   CharHigh=16;
   TTYLoc.x = 0;        

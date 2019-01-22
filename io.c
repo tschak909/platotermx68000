@@ -3,7 +3,7 @@
 
 void io_init(void)
 {
-  _iocs_set232c(0x4C10);
+  _iocs_set232c(0x4C08);
 }
 
 void io_send_byte(unsigned char b)
