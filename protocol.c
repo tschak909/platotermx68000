@@ -67,7 +67,7 @@ extern void terminal_char_load(padWord charnum, charData theChar);
 extern void terminal_mode_5(padWord value);
 extern void terminal_mode_6(padWord value);
 extern void terminal_mode_7(padWord value);
-/* extern void touch_allow(padBool allow); */
+extern void touch_allow(padBool allow);
 extern void terminal_ext_allow(padBool allow);
 extern void terminal_set_ext_in(padWord device);
 extern void terminal_set_ext_out(padWord device);
@@ -579,7 +579,7 @@ SSFx (void)
   if (device == 1)
     {
       terminal_ext_allow ((theWord >> 3) & 1);
-      /* touch_allow ((theWord >> 5) & 1); */
+      touch_allow ((theWord >> 5) & 1);
     }
   else if ((theWord >> 9) & 1)
     {

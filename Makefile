@@ -14,6 +14,7 @@ OBJS=	screen.o	\
 	terminal.o	\
 	io.o		\
 	keyboard.o	\
+	touch.o		\
 	main.o
 
 all:	plato.x
