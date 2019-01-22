@@ -5,6 +5,7 @@
 #include "protocol.h"
 #include "io.h"
 
+int previousMode;
 unsigned char CharWide=8;
 unsigned char CharHigh=16;
 padPt TTYLoc;
@@ -30,6 +31,7 @@ int highest_color_index;
 void screen_init(void)
 {
   /* 512x512 16 colors 31kHz */
+  previousMode=_iocs_crtmod(-1);
   _iocs_crtmod(4);
   _iocs_g_clr_on();
   _iocs_b_curoff();
@@ -463,13 +465,15 @@ void screen_paint(padPt* Coord)
  */
 void screen_clear_status(void)
 {
+  fill(X(0),Y(0),X(511),Y(16),0);
 }
 
 /**
  * screen_show_status(msg)
  */
-void screen_show_status(unsigned char* msg,int len)
+void screen_show_status(unsigned char* msg)
 {
+  symbol(X(0),Y(0),msg,1,1,1,current_foreground,0);
 }
 
 /**
@@ -478,4 +482,8 @@ void screen_show_status(unsigned char* msg,int len)
  */
 void screen_done(void)
 {
+  _iocs_crtmod(previousMode);
+  _iocs_g_clr_on();
+  _iocs_b_curon();
+  wipe();
 }
