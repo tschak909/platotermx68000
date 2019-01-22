@@ -43,10 +43,18 @@ void keyboard_main(void)
       	{
 	  if ((ch[0]==0x0d) && (modifier & 1))
 	    keyboard_out(PKEY_NEXT1);
-	  else if ((sc[0]==54) && (modifier & 1))
+	  else if ((sc[0]==0x54) && (modifier & 1))
 	    keyboard_out(PKEY_HELP1);
-	  else if ((sc[0]==54))
+	  else if ((sc[0]==0x54))
 	    keyboard_out(PKEY_HELP);
+	  else if ((sc[0]==0x0f) && (modifier & 1))
+	    keyboard_out(PKEY_ERASE1);
+	  else if ((sc[0]==0x62) && (modifier & 1))
+	    keyboard_out(PKEY_COPY1);
+	  else if ((sc[0]==0x62))
+	    keyboard_out(PKEY_COPY);
+	  else if ((sc[0]==0x0F))
+	    keyboard_out(PKEY_ERASE);
 	  else if (modifier & 2) /* CTRL pressed */
 	    {
 	      if (modifier & 1)

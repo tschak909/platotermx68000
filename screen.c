@@ -76,6 +76,7 @@ void screen_wait(void)
  */
 void screen_beep(void)
 {
+  _iocs_b_putc(0x07); /* BELL */
 }
 
 /**

@@ -3,6 +3,7 @@
 #include "io.h"
 #include "terminal.h"
 #include "keyboard.h"
+#include "touch.h"
 #include "splash.h"
 
 #define true 1
@@ -13,6 +14,7 @@ unsigned char already_started=false;
 void main(void)
 {
   screen_init();
+  touch_init();
   ShowPLATO(splash,sizeof(splash));
   terminal_initial_position();
   io_init();
@@ -20,5 +22,6 @@ void main(void)
     {
       keyboard_main();
       io_main();
+      touch_main();
     }
 }
