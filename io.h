@@ -24,6 +24,12 @@ void io_init(void);
 void io_send_byte(unsigned char b);
 
 /**
+ * io_send_string(str,len)
+ * Send string to port.
+ */
+void io_send_string(const char* str, int len);
+
+/**
  * io_main() - The IO main loop
  */
 void io_main(void);
