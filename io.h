@@ -45,6 +45,11 @@ void io_set_baud(int baud);
 void io_hang_up(void);
 
 /**
+ * io_send_cr(void)
+ */
+void io_send_cr(void);
+
+/**
  * io_done() - Called to close I/O
  */
 void io_done(void);

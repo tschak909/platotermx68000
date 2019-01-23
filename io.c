@@ -9,6 +9,8 @@ extern ConfigInfo config;
 void io_init(void)
 {
   io_set_baud(config.baud);
+  io_send_string(config.init_string,strlen(config.init_string));
+  io_send_cr();
 }
 
 void io_send_byte(unsigned char b)
@@ -88,6 +90,23 @@ void io_hang_up(void)
   io_send_string("+++",3);
   for (i=0;i<600000;i++) {}
   io_send_string("ATH0\r\n",6);
+}
+
+/**
+ * io_send_cr(void)
+ */
+void io_send_cr(void)
+{
+  io_send_string("\r\n",2);
+}
+
+/**
+ * io_dial(void) - Send dial string to modem
+ */
+void io_dial(void)
+{
+  io_send_string(config.dial_string,strlen(config.dial_string));
+  io_send_cr();  
 }
 
 void io_done()
