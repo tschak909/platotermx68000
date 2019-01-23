@@ -64,7 +64,7 @@ void config_set_defaults(void)
 void config_save(void)
 {
   int handle;
-  handle=_dos_open(CONFIG_FILE,1);
+  handle=_dos_open(CONFIG_FILE,2);
 
   if (handle<0)
     {

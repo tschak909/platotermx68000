@@ -466,7 +466,7 @@ void screen_paint(padPt* Coord)
  */
 void screen_clear_status(void)
 {
-  fill(X(0),Y(0),X(511),Y(16),0);
+  fill(X(0),Y(0),X(511),Y(16),1);
 }
 
 /**
@@ -474,8 +474,15 @@ void screen_clear_status(void)
  */
 void screen_show_status(unsigned char* msg)
 {
+  int previous_foreground=current_foreground;
+  int previous_background=current_background;
+  padPt coord={0,0};
   screen_clear_status();
-  symbol(X(0),Y(0),msg,1,1,1,current_foreground,0);
+  current_foreground=0;
+  current_background=1;
+  screen_char_draw(&coord,msg,strlen(msg));
+  current_foreground=previous_foreground;
+  current_background=previous_background;
 }
 
 /**
@@ -483,7 +490,7 @@ void screen_show_status(unsigned char* msg)
  */
 void screen_show_baud_rate(int baud)
 {
-  sprintf(tmp,"%d Baud");
+  sprintf(tmp,"%d Baud",baud);
   screen_show_status(tmp);
 }
 

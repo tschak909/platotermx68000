@@ -37,7 +37,20 @@ void keyboard_main(void)
       sc[0] = inp>>8;
       if (TTY)
       	{
-      	  keyboard_out_tty(ch[0]);
+	  if ((sc[0]==0x02) && (modifier & 2))
+	    io_set_baud(1200);
+	  else if ((sc[0]==0x03) && (modifier & 2))
+	    io_set_baud(2400);
+	  else if ((sc[0]==0x04) && (modifier & 2))
+	    io_set_baud(300);
+	  else if ((sc[0]==0x07) && (modifier & 2))
+	    io_set_baud(9600);
+	  else if ((sc[0]==0x09) && (modifier & 2))
+	    io_set_baud(38400);
+	  else if ((sc[0]==0x0a) && (modifier & 2))
+	    io_set_baud(19200);
+	  else
+	    keyboard_out_tty(ch[0]);
       	}
       else
       	{

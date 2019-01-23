@@ -11,6 +11,7 @@
 #define false 0
 
 unsigned char already_started=false;
+extern ConfigInfo config;
 
 void main(void)
 {

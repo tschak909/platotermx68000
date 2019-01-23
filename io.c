@@ -1,9 +1,12 @@
 #include "io.h"
 #include "protocol.h"
+#include "config.h"
+
+extern ConfigInfo config;
 
 void io_init(void)
 {
-  _iocs_set232c(0x4C08);
+  io_set_baud(config.baud);
 }
 
 void io_send_byte(unsigned char b)
@@ -41,8 +44,10 @@ void io_main(void)
  */
 void io_set_baud(int baud)
 {
-  int settings=_iocs_set232c(-1)&0xFFF0; /* Get old settings and mask off baud rate. */
+  int settings=0x4c00; /* Get old settings and mask off baud rate. */
   int new_baud;
+
+  config.baud=baud;
   
   switch (baud)
     {
@@ -69,6 +74,7 @@ void io_set_baud(int baud)
   settings|=new_baud;
   _iocs_set232c(settings);
   screen_show_baud_rate(baud);
+  config_save();
 }
 
 void io_done()
