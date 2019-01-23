@@ -90,6 +90,7 @@ void terminal_set_tty(void)
   CharHigh=16;
   TTYLoc.x = 0;        
   TTYLoc.y = 495;      
+  screen_show_status("TTY Mode");
 }
 
 /**
@@ -99,6 +100,7 @@ void terminal_set_plato(void)
 {
   TTY=false;
   screen_clear();
+  screen_show_status("PLATO Mode");
 }
 
 /**

@@ -37,6 +37,10 @@ void keyboard_main(void)
       sc[0] = inp>>8;
       if (sc[0]==0x61)
 	io_hang_up();
+      else if (sc[0]==0x63)
+	terminal_set_tty();
+      else if (sc[0]==0x64)
+	terminal_set_plato();
       else if (TTY)
       	{
 	  if ((sc[0]==0x02) && (modifier & 2))
