@@ -16,22 +16,7 @@ void io_send_byte(unsigned char b)
 
 void io_main(void)
 {
-  padByte buf[1];
-  /* int len,i; */
-
-  /* len=0; */
-  
-  /* while (_iocs_isns232c()!=0) */
-  /*   { */
-  /*     buf[len++]=_iocs_inp232c(); */
-  /*   } */
-
-  /* if (len>0) */
-  /*   { */
-  /*     ShowPLATO(&buf,len); */
-  /*     len=0; */
-  /*   } */
-  
+  padByte buf[1];  
   if (_iocs_isns232c())
     {
       buf[0]=_iocs_inp232c();
