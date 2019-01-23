@@ -24,7 +24,7 @@ void io_main(void)
   if (_iocs_isns232c())
     {
       buf[0]=_iocs_inp232c();
-      ShowPLATO(&buf,1);
+      ShowPLATO((padByte *)&buf,1);
     }
 }
 
@@ -87,7 +87,7 @@ void io_hang_up(void)
   terminal_set_tty();
   screen_show_hang_up();
   io_send_string("+++",3);
-  sleep(5);
+  sleep(2);
   io_send_string("ATH0\r\n",6);
   terminal_set_tty();
 }
@@ -105,8 +105,18 @@ void io_send_cr(void)
  */
 void io_send_dial(void)
 {
+  screen_show_dialing_status();
   io_send_string(config.dial_string,strlen(config.dial_string));
   io_send_cr();  
+}
+
+/**
+ * io_send_back_out(void) - send back out
+ */
+void io_send_back_out(void)
+{
+  io_send_byte(0x02);
+  io_hang_up();
 }
 
 void io_done()

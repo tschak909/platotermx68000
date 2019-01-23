@@ -538,6 +538,14 @@ void screen_show_hang_up(void)
 }
 
 /**
+ * screen_show_dialing_status - Show dialing status.
+ */
+void screen_show_dialing_status(void)
+{
+  screen_show_status("Dialing...");
+}
+
+/**
  * screen_done()
  * Close down TGI
  */

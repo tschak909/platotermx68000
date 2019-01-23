@@ -109,6 +109,11 @@ void screen_show_hang_up(void);
 void screen_show_dial(void);
 
 /**
+ * screen_show_dialing_status - Show dialing status.
+ */
+void screen_show_dialing_status(void);
+
+/**
  * screen_done()
  * Close down TGI
  */

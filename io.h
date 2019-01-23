@@ -55,6 +55,11 @@ void io_send_cr(void);
 void io_send_dial(void);
 
 /**
+ * io_send_back_out(void) - send back out
+ */
+void io_send_back_out(void);
+
+/**
  * io_done() - Called to close I/O
  */
 void io_done(void);

@@ -61,6 +61,10 @@ void keyboard_main(void)
 	    io_set_baud(38400);
 	  else if ((sc[0]==0x0a) && (modifier & 2))
 	    io_set_baud(19200);
+	  else if ((sc[0]==0x20) && (modifier & 2))
+	    io_send_dial();
+	  else if ((sc[0]==0x2e) && (modifier & 2))
+	    io_send_back_out();	  
 	  else
 	    keyboard_out_tty(ch[0]);
       	}
