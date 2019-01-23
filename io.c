@@ -101,9 +101,9 @@ void io_send_cr(void)
 }
 
 /**
- * io_dial(void) - Send dial string to modem
+ * io_send_dial(void) - Send dial string to modem
  */
-void io_dial(void)
+void io_send_dial(void)
 {
   io_send_string(config.dial_string,strlen(config.dial_string));
   io_send_cr();  

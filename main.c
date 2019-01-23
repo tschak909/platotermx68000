@@ -23,6 +23,7 @@ void main(void)
   terminal_initial_position();
   io_init();
   running=true;
+  screen_show_dial();
   while (running==true)
     {
       keyboard_main();

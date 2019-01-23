@@ -20,6 +20,9 @@ padRGB current_foreground_rgb={255,255,255};
 padRGB current_background_rgb={0,0,0};
 int highest_color_index;
 
+#define true 1
+#define false 0
+
 /* Transform 8-bit RGB to X68000 palette value. */
 #define X68_GRB(r, g, b, i) ( ( ((b&0xF8)>>2) | (((g)&0xF8)<<8) | (((r)&0xF8)<<3) ) | i )
 #define FONTPTR(a) (a<<4)
@@ -492,6 +495,38 @@ void screen_show_baud_rate(int baud)
 {
   sprintf(tmp,"%d Baud",baud);
   screen_show_status(tmp);
+}
+
+/**
+ * screen_show_dial - Show dial in TTY mode
+ */
+void screen_show_dial(void)
+{
+  int abort_dial=false;
+  int i;
+  
+  sprintf(tmp,"Dialing %s in 5 seconds...\r\n");
+  ShowPLATO(tmp,strlen(tmp));
+  sprintf(tmp,"or any key to abort.");
+  ShowPLATO(tmp,strlen(tmp));
+
+  for (i=0;i<5;i++)
+    {
+      if (_iocs_b_keysns())
+	{
+	  abort_dial=true;
+	  continue;
+	}
+      sleep(1);
+    }
+  
+  if (abort_dial==false)
+    io_send_dial();
+  else
+    {
+      sprintf(tmp,"Dial aborted.\r\n");
+      ShowPLATO(tmp,strlen(tmp));
+    }
 }
 
 /**

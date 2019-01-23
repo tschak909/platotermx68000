@@ -50,6 +50,11 @@ void io_hang_up(void);
 void io_send_cr(void);
 
 /**
+ * io_send_dial(void) - send dial string
+ */
+void io_send_dial(void);
+
+/**
  * io_done() - Called to close I/O
  */
 void io_done(void);

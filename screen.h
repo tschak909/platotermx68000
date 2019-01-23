@@ -104,6 +104,11 @@ void screen_show_baud_rate(int baud);
 void screen_show_hang_up(void);
 
 /**
+ * screen_show_dial - Show dial in TTY mode
+ */
+void screen_show_dial(void);
+
+/**
  * screen_done()
  * Close down TGI
  */
