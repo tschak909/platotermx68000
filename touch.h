@@ -24,4 +24,10 @@ padBool touch_lmb(void);
  */
 void touch_main(void);
 
+/**
+ * touch done
+ */
+void touch_done(void);
+
+
 #endif /* TOUCH_H */

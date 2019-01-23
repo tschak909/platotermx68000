@@ -11,6 +11,7 @@
 #define false 0
 
 unsigned char already_started=false;
+unsigned char running=false;
 extern ConfigInfo config;
 
 void main(void)
@@ -21,10 +22,14 @@ void main(void)
   ShowPLATO(splash,sizeof(splash));
   terminal_initial_position();
   io_init();
-  for (;;)
+  running=true;
+  while (running==true)
     {
       keyboard_main();
       io_main();
       touch_main();
     }
+  io_done();
+  touch_done();
+  screen_done();
 }

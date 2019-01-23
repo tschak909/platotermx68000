@@ -61,3 +61,11 @@ void touch_main(void)
     }
   lastlmb=lmb;
 }
+
+/**
+ * touch done
+ */
+void touch_done(void)
+{
+  _iocs_ms_curof();
+}

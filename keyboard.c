@@ -5,7 +5,11 @@
 #include "io.h"
 #include "screen.h"
 
+#define true 1
+#define false 0
+
 unsigned char ch;
+extern unsigned char running;
 
 void keyboard_out(int platoKey)
 {
@@ -41,6 +45,8 @@ void keyboard_main(void)
 	terminal_set_tty();
       else if (sc[0]==0x64)
 	terminal_set_plato();
+      else if (sc[0]==0x6C)
+	running=false;
       else if (TTY)
       	{
 	  if ((sc[0]==0x02) && (modifier & 2))
