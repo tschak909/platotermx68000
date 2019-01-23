@@ -84,12 +84,12 @@ void io_set_baud(int baud)
  */
 void io_hang_up(void)
 {
-  int i;
-  screen_show_hang_up();
   terminal_set_tty();
+  screen_show_hang_up();
   io_send_string("+++",3);
-  for (i=0;i<600000;i++) {}
+  sleep(5);
   io_send_string("ATH0\r\n",6);
+  terminal_set_tty();
 }
 
 /**
