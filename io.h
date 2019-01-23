@@ -34,6 +34,11 @@ void io_main(void);
 void io_set_baud(int baud);
 
 /**
+ * io_hang_up(void) - Hang up modem
+ */
+void io_hang_up(void);
+
+/**
  * io_done() - Called to close I/O
  */
 void io_done(void);

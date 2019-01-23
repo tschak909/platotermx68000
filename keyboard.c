@@ -35,7 +35,9 @@ void keyboard_main(void)
       inp=_iocs_b_keyinp();
       ch[0] = inp&0xFF;
       sc[0] = inp>>8;
-      if (TTY)
+      if (sc[0]==0x61)
+	io_hang_up();
+      else if (TTY)
       	{
 	  if ((sc[0]==0x02) && (modifier & 2))
 	    io_set_baud(1200);

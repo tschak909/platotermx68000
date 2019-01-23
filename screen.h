@@ -99,6 +99,11 @@ void screen_paint(padPt* Coord);
 void screen_show_baud_rate(int baud);
 
 /**
+ * screen_show_hang_up - Show hang-up message
+ */
+void screen_show_hang_up(void);
+
+/**
  * screen_done()
  * Close down TGI
  */
