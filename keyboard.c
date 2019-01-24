@@ -5,13 +5,15 @@
 #include "io.h"
 #include "screen.h"
 #include "trace.h"
+#include "config.h"
 
 #define true 1
 #define false 0
 
-unsigned char ch;
 extern unsigned char running;
 extern unsigned char help_active;
+extern char tmp[64];
+extern ConfigInfo config;
 
 void keyboard_out(int platoKey)
 {
@@ -69,6 +71,10 @@ void keyboard_main(void)
 	    io_set_baud(38400);
 	  else if ((sc[0]==0x0a) && (modifier & 2))
 	    io_set_baud(19200);
+	  else if ((sc[0]==0x20) && (modifier & 1) && (modifier & 2))
+	      keyboard_input_str("Dial String:",config.dial_string);
+	  else if ((sc[0]==0x18) && (modifier & 1) && (modifier & 2))
+	      keyboard_input_str("Init String:",config.init_string);
 	  else if ((sc[0]==0x20) && (modifier & 2))
 	    io_send_dial();
 	  else if ((sc[0]==0x2e) && (modifier & 2))
@@ -102,7 +108,55 @@ void keyboard_main(void)
     }
 }
 
+/**
+ * keyboard_input_str(prompt, str)
+ * Input keyboard string with prompt in status bar
+ */
+void keyboard_input_str(char* prompt, char* str)
+{
+  char ch[2]={0x00,0x00};
+  int len=strlen(str);
+  char ptmp[64];
+  
+  strcpy(tmp,str);
+  
+  while ((ch[0] != 0x0d) && (ch[0] != 0x1B))
+    {
+      sprintf(ptmp,"%s %s",prompt,tmp);
+      screen_show_status(ptmp);
+      ch[0]=_iocs_b_keyinp()&0xFF;
+      if (ch[0] == 0x08)
+	{
+	  if (len>0)
+	    {
+	      tmp[len-1]='\0';
+	      len--;
+	    }
+	}
+      else if ((ch[0] != 0x0d) && (ch[0] != 0x1B))
+	{
+	  strcat(tmp,ch);
+	  len++;
+	}
+    }
+
+  if (ch[0]==0x1B)
+    {
+      screen_show_status("Aborted.");
+      return;
+    }
+
+  if (ch[0]==0x0d)
+    {
+      screen_show_status("Updated.");
+      strcpy(str,tmp);
+      config_save();
+      return;
+    }
+}
+
 void keyboard_out_tty(int ch)
 {
   io_send_byte(ch);
 }
+

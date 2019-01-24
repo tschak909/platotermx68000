@@ -28,4 +28,10 @@ void keyboard_main(void);
  */
 void keyboard_out_tty(int ch);
 
+/**
+ * keyboard_input_str(prompt, str)
+ * Input keyboard string with prompt in status bar
+ */
+void keyboard_input_str(char* prompt, char* str);
+
 #endif
