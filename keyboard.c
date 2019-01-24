@@ -102,10 +102,6 @@ void keyboard_main(void)
     }
 }
 
-void keyboard_clear(void)
-{
-}
-
 void keyboard_out_tty(int ch)
 {
   io_send_byte(ch);
