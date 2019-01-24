@@ -17,6 +17,7 @@ OBJS=	screen.o	\
 	touch.o		\
 	config.o	\
 	help.o		\
+	trace.o		\
 	main.o
 
 all:	plato.x

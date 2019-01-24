@@ -4,7 +4,11 @@
 #include "config.h"
 #include "terminal.h"
 
+#define true 1
+#define false 0
+
 extern ConfigInfo config;
+extern unsigned char trace_active;
 
 void io_init(void)
 {
@@ -24,6 +28,10 @@ void io_main(void)
   if (_iocs_isns232c())
     {
       buf[0]=_iocs_inp232c();
+      
+      if (trace_active==true)
+	trace_append(&buf,1);
+
       ShowPLATO((padByte *)&buf,1);
     }
 }

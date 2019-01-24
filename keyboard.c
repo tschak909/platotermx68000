@@ -4,12 +4,14 @@
 #include "protocol.h"
 #include "io.h"
 #include "screen.h"
+#include "trace.h"
 
 #define true 1
 #define false 0
 
 unsigned char ch;
 extern unsigned char running;
+extern unsigned char help_active;
 
 void keyboard_out(int platoKey)
 {
@@ -39,7 +41,9 @@ void keyboard_main(void)
       inp=_iocs_b_keyinp();
       ch[0] = inp&0xFF;
       sc[0] = inp>>8;
-      if (sc[0]==0x54)
+      if (help_active)
+	screen_show_help();
+      else if (sc[0]==0x54)
 	screen_show_help();
       if (sc[0]==0x61)
 	io_hang_up();
@@ -47,6 +51,8 @@ void keyboard_main(void)
 	terminal_set_tty();
       else if (sc[0]==0x64)
 	terminal_set_plato();
+      else if (sc[0]==0x65)
+	trace_toggle();
       else if (sc[0]==0x6C)
 	running=false;
       else if (TTY)

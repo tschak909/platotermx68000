@@ -21,11 +21,14 @@ void main(void)
   screen_init();
   touch_init();
   help_init();
+  NoEcho=padT;
   ShowPLATO(splash,sizeof(splash));
+  NoEcho=padF;
   terminal_initial_position();
   io_init();
   running=true;
   screen_show_dial();
+  screen_greeting();
   while (running==true)
     {
       keyboard_main();

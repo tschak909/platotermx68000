@@ -50,6 +50,7 @@ extern	padBool		TTY,
 			Rotate,
 			Reverse;
 extern	DispMode	CurMode;
+extern  padBool         NoEcho;
 
 void InitPAD(void);
 void InitTTY(void);

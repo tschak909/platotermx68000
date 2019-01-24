@@ -142,6 +142,22 @@ void screen_restore_palette(void);
  */
 void screen_show_help(void);
 
+/**
+ * screen_trace_status - Show trace status
+ */
+void screen_trace_status(const char* status);
+
+/**
+ * screen_help_mode_status(void)
+ * Put help mode status at bottom of help screen
+ */
+void screen_help_mode_status(void);
+
+/**
+ * screen_greeting(void)
+ * show initial greeting
+ */
+void screen_greeting(void);
 
 /**
  * screen_done()

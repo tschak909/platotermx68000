@@ -4,6 +4,15 @@
 #include "font.h"
 #include "protocol.h"
 #include "io.h"
+#include "config.h"
+
+#define true 1
+#define false 0
+/* Transform 8-bit RGB to X68000 palette value. */
+#define X68_GRB(r, g, b, i) ( ( ((b&0xF8)>>2) | (((g)&0xF8)<<8) | (((r)&0xF8)<<3) ) | i )
+#define FONTPTR(a) (a<<4)
+#define X(x) (x)
+#define Y(y) (y^0x1FF)
 
 char tmp[64];
 int previousMode;
@@ -26,16 +35,8 @@ unsigned long current_background_backup=0;
 padRGB current_foreground_rgb_backup={255,255,255};
 padRGB current_background_rgb_backup={0,0,0};
 int highest_color_index_backup;
-
-
-#define true 1
-#define false 0
-
-/* Transform 8-bit RGB to X68000 palette value. */
-#define X68_GRB(r, g, b, i) ( ( ((b&0xF8)>>2) | (((g)&0xF8)<<8) | (((r)&0xF8)<<3) ) | i )
-#define FONTPTR(a) (a<<4)
-#define X(x) (x)
-#define Y(y) (y^0x1FF)
+unsigned char help_active=false;
+extern ConfigInfo config;
 
 /**
  * screen_init() - Set up the screen
@@ -559,40 +560,13 @@ void screen_show_dialing_status(void)
  */
 void screen_help_save_palette(void)
 {
-  /* int i; */
-  /* for (i=0;i<16;i++) */
-  /*   { */
-  /*     palette_help[i].red=palette[i].red; */
-  /*     palette_help[i].green=palette[i].green; */
-  /*     palette_help[i].blue=palette[i].blue; */
-  /*   } */
-  palette_help[0].red=0;
-  palette_help[0].green=0;
-  palette_help[0].blue=0;
-  palette_help[1].red=255;
-  palette_help[1].green=255;
-  palette_help[1].blue=255;
-  palette_help[2].red=0;
-  palette_help[2].green=255;
-  palette_help[2].blue=255;
-  palette_help[3].red=0;
-  palette_help[3].green=255;
-  palette_help[3].blue=0;
-  palette_help[4].red=255;
-  palette_help[4].green=0;
-  palette_help[4].blue=255;
-  palette_help[5].red=255;
-  palette_help[5].green=255;
-  palette_help[5].blue=0;
-  palette_help[6].red=255;
-  palette_help[6].green=0;
-  palette_help[6].blue=255;
-  palette_help[7].red=255;
-  palette_help[7].green=255;
-  palette_help[7].blue=255;
-  
-  
-
+  int i;
+  for (i=0;i<16;i++)
+    {
+      palette_help[i].red=palette[i].red;
+      palette_help[i].green=palette[i].green;
+      palette_help[i].blue=palette[i].blue;
+    }
 }
 
 /**
@@ -662,6 +636,8 @@ void screen_restore_palette(void)
       palette[i].green=palette_backup[i].green;
       palette[i].blue=palette_backup[i].blue;
     }
+
+  screen_update_colors();
   
 }
 
@@ -670,9 +646,48 @@ void screen_restore_palette(void)
  */
 void screen_show_help(void)
 {
-  screen_save_palette();
-  screen_help_restore_palette();
-  _iocs_vpage(2);
+  if (help_active==false)
+    {
+      screen_save_palette();
+      screen_help_restore_palette();
+      _iocs_vpage(2);
+      help_active=true;
+    }
+  else
+    {
+      screen_restore_palette();
+      _iocs_vpage(1);
+      help_active=false;
+    }
+}
+
+/**
+ * screen_trace_status - Show trace status
+ */
+void screen_trace_status(const char* status)
+{
+  char tmp_status_msg[13];
+  sprintf(tmp_status_msg,"TRACE: %s",status);
+  screen_show_status(tmp_status_msg);
+}
+
+/**
+ * screen_help_mode_status(void)
+ * Put help mode status at bottom of help screen
+ */
+void screen_help_mode_status(void)
+{
+  screen_show_status("HELP Mode - Press any key to return to terminal.");
+}
+
+/**
+ * screen_greeting(void)
+ * show initial greeting
+ */
+void screen_greeting(void)
+{
+  sprintf(tmp,"v1.0 Ready - %5d baud - Press HELP for keys.",config.baud);
+  screen_show_status(tmp);
 }
 
 /**

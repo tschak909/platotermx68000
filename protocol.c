@@ -128,7 +128,7 @@ padBool TTY,			/* TTY mode */
   Rotate, Reverse;
 DispMode CurMode;		/* Current PLATO plotting mode */
 padBool FastText;               /* Indicate to main program if text optimizations can be done. */
-
+padBool NoEcho=padF;
 
 /*----------------------------------------------*
  *	InitPAD, InitTTY, InitPLATO		*
@@ -264,6 +264,8 @@ Ext (padWord theKey)
 void
 Echo (padWord theKey)
 {
+  if (NoEcho==padT)
+    return;
   Key (0x080 | theKey);
 }
 
