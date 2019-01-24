@@ -19,6 +19,14 @@ unsigned long current_background=0;
 padRGB current_foreground_rgb={255,255,255};
 padRGB current_background_rgb={0,0,0};
 int highest_color_index;
+padRGB palette_help[16];
+padRGB palette_backup[16];
+unsigned long current_foreground_backup=1;
+unsigned long current_background_backup=0;
+padRGB current_foreground_rgb_backup={255,255,255};
+padRGB current_background_rgb_backup={0,0,0};
+int highest_color_index_backup;
+
 
 #define true 1
 #define false 0
@@ -543,6 +551,128 @@ void screen_show_hang_up(void)
 void screen_show_dialing_status(void)
 {
   screen_show_status("Dialing...");
+}
+
+/**
+ * screen_help_save_palette(void) - Save initial help palette
+ * for future restore by screen_help_restore_palette(void)
+ */
+void screen_help_save_palette(void)
+{
+  /* int i; */
+  /* for (i=0;i<16;i++) */
+  /*   { */
+  /*     palette_help[i].red=palette[i].red; */
+  /*     palette_help[i].green=palette[i].green; */
+  /*     palette_help[i].blue=palette[i].blue; */
+  /*   } */
+  palette_help[0].red=0;
+  palette_help[0].green=0;
+  palette_help[0].blue=0;
+  palette_help[1].red=255;
+  palette_help[1].green=255;
+  palette_help[1].blue=255;
+  palette_help[2].red=0;
+  palette_help[2].green=255;
+  palette_help[2].blue=255;
+  palette_help[3].red=0;
+  palette_help[3].green=255;
+  palette_help[3].blue=0;
+  palette_help[4].red=255;
+  palette_help[4].green=0;
+  palette_help[4].blue=255;
+  palette_help[5].red=255;
+  palette_help[5].green=255;
+  palette_help[5].blue=0;
+  palette_help[6].red=255;
+  palette_help[6].green=0;
+  palette_help[6].blue=255;
+  palette_help[7].red=255;
+  palette_help[7].green=255;
+  palette_help[7].blue=255;
+  
+  
+
+}
+
+/**
+ * screen_help_restore_palette(void) - Restore the help
+ * palette, because the help screen is visible.
+ */
+void screen_help_restore_palette(void)
+{
+  int i;
+  for (i=0;i<16;i++)
+    {
+      palette[i].red=palette_help[i].red;
+      palette[i].green=palette_help[i].green;
+      palette[i].blue=palette_help[i].blue;
+    }
+  screen_update_colors();
+}
+
+/**
+ * screen_save_palette(void) - Save current screen palette state
+ * for restore by screen_restore_palette(void)
+ */
+void screen_save_palette(void)
+{
+  int i;
+
+  current_foreground_backup=current_foreground;
+  current_background_backup=current_background;
+  current_foreground_rgb_backup.red=current_foreground_rgb.red;
+  current_foreground_rgb_backup.green=current_foreground_rgb.green;
+  current_foreground_rgb_backup.blue=current_foreground_rgb.blue;
+  current_background_rgb_backup.red=current_background_rgb.red;
+  current_background_rgb_backup.green=current_background_rgb.green;
+  current_background_rgb_backup.blue=current_background_rgb.blue;
+  highest_color_index_backup=highest_color_index;
+  
+  for (i=0;i<16;i++)
+    {
+      palette_backup[i].red=palette[i].red;
+      palette_backup[i].green=palette[i].green;
+      palette_backup[i].blue=palette[i].blue;
+    }
+  
+}
+
+/**
+ * screen_restore_palette(void) - Restore current screen palette
+ * upon return from help screen.
+ */
+void screen_restore_palette(void)
+{
+  int i;
+
+  current_foreground=current_foreground_backup;
+  current_background=current_background_backup;
+  current_foreground_rgb.red=current_foreground_rgb_backup.red;
+  current_foreground_rgb.green=current_foreground_rgb_backup.green;
+  current_foreground_rgb.blue=current_foreground_rgb_backup.blue;
+  current_background_rgb.red=current_background_rgb_backup.red;
+  current_background_rgb.green=current_background_rgb_backup.green;
+  current_background_rgb.blue=current_background_rgb_backup.blue;
+  highest_color_index=highest_color_index_backup;
+  
+  for (i=0;i<16;i++)
+    {
+      palette[i].red=palette_backup[i].red;
+      palette[i].green=palette_backup[i].green;
+      palette[i].blue=palette_backup[i].blue;
+    }
+  
+}
+
+/**
+ * screen_show_help - SHow help
+ */
+void screen_show_help(void)
+{
+  screen_save_palette();
+  screen_help_restore_palette();
+  _iocs_vpage(2);
 }
 
 /**

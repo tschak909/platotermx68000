@@ -114,6 +114,36 @@ void screen_show_dial(void);
 void screen_show_dialing_status(void);
 
 /**
+ * screen_help_save_palette(void) - Save initial help palette
+ * for future restore by screen_help_restore_palette(void)
+ */
+void screen_help_save_palette(void);
+
+/**
+ * screen_help_restore_palette(void) - Restore the help
+ * palette, because the help screen is visible.
+ */
+void screen_help_restore_palette(void);
+
+/**
+ * screen_save_palette(void) - Save current screen palette state
+ * for restore by screen_restore_palette(void)
+ */
+void screen_save_palette(void);
+
+/**
+ * screen_restore_palette(void) - Restore current screen palette
+ * upon return from help screen.
+ */
+void screen_restore_palette(void);
+
+/**
+ * screen_show_help - SHow help
+ */
+void screen_show_help(void);
+
+
+/**
  * screen_done()
  * Close down TGI
  */

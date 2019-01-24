@@ -5,6 +5,7 @@
 #include "keyboard.h"
 #include "touch.h"
 #include "splash.h"
+#include "help.h"
 #include "config.h"
 
 #define true 1
@@ -19,6 +20,7 @@ void main(void)
   config_init();
   screen_init();
   touch_init();
+  help_init();
   ShowPLATO(splash,sizeof(splash));
   terminal_initial_position();
   io_init();

@@ -39,6 +39,8 @@ void keyboard_main(void)
       inp=_iocs_b_keyinp();
       ch[0] = inp&0xFF;
       sc[0] = inp>>8;
+      if (sc[0]==0x54)
+	screen_show_help();
       if (sc[0]==0x61)
 	io_hang_up();
       else if (sc[0]==0x63)
@@ -72,10 +74,6 @@ void keyboard_main(void)
       	{
 	  if ((ch[0]==0x0d) && (modifier & 1))
 	    keyboard_out(PKEY_NEXT1);
-	  else if ((sc[0]==0x54) && (modifier & 1))
-	    keyboard_out(PKEY_HELP1);
-	  else if ((sc[0]==0x54))
-	    keyboard_out(PKEY_HELP);
 	  else if ((sc[0]==0x0f) && (modifier & 1))
 	    keyboard_out(PKEY_ERASE1);
 	  else if ((sc[0]==0x62) && (modifier & 1))
@@ -84,6 +82,8 @@ void keyboard_main(void)
 	    keyboard_out(PKEY_COPY);
 	  else if ((sc[0]==0x0F))
 	    keyboard_out(PKEY_ERASE);
+	  else if ((sc[0]==0x30) && (modifier & 2))
+	    keyboard_out(PKEY_MICRO);
 	  else if (modifier & 2) /* CTRL pressed */
 	    {
 	      if (modifier & 1)
