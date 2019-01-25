@@ -72,17 +72,23 @@ available distribution of CYBIS that others who are interested may also
 run their own CYBIS installation. IRATA.ONLINE is a direct result of the
 public release of this distribution.
 
-Loading PLATOTerm99
--------------------
-PLATOTerm99 can be loaded using option 5 of the Editor/Assembler cartridge.
-The filename is PLATO
+Loading PLATOTerm
+-----------------
+
+PLATOTerm can be loaded by executing '''plato.x''' from Human68K. For
+best results, run '''tmsio.x''' before launching '''plato.x''' to get
+improved serial port performance, using a command such as:
+
+```
+tmsio -b16
+```
 
 Default Settings
 ----------------
 This Pre-release version of PLATOTerm99 is configured for the following settings:
 
-* RS232 Port 1
-* 1200 Baud
+* Built-in RS232 Port
+* 19200 baud
 * No Parity
 * 8 Data Bits
 * 1 Stop Bit
@@ -113,51 +119,68 @@ The PLATO keyboard is mapped to the Atari keys, like so:
 
 (TODO: Map all the keys)
 
-| PLATO KEY  	| TI Key  	|
+| PLATO KEY  	| X68000 Key  	|
 |---	|---	|
 | ANS  	| CTRL A  	|
-| BACK  	| FCTN 9  	|
-| SHIFT-BACK | CTRL 9 |
-| COPY | FCTN 1 |
-| SHIFT-COPY | CTRL 1  |
-| DATA | FCTN 2 |
-| SHIFT-DATA | CTRL 2 |
-| EDIT | FCTN 5 |
-| SHIFT-EDIT | CTRL 5 |
-| ERASE | FCTN S |
-| SHIFT-ERASE | CTRL S |
+| BACK  	| CTRL B  	|
+| SHIFT-BACK | SHIFT CTRL B |
+| COPY | CTRL C |
+| SHIFT-COPY | SHIFT CTRL 1  |
+| DATA | CTRL D |
+| SHIFT-DATA | SHIFT CTRL D |
+| EDIT | CTRL E |
+| SHIFT-EDIT | SHIFT CTRL E |
+| ERASE | BACKSPACE |
+| SHIFT-ERASE | SHIFT BACKSPACE |
 | FONT | CTRL F |
-| &#247; | CTRL 8 | 
-| HELP | FCTN H |
-| SHIFT-HELP | CTRL H |
-| LAB | FCTN L |
-| SHIFT-LAB | CTRL L |
-| MICRO | FCTN M |
+| &#247; | CTRL G | 
+| HELP | CTRL H |
+| SHIFT-HELP | SHIFT CTRL H |
+| LAB | CTRL L |
+| SHIFT-LAB | SHIFT CTRL L |
+| MICRO | CTRL M |
 | NEXT | ENTER |
-| SHIFT-NEXT | FCTN ; |
-| SUPER | FCTN N |
-| SHIFT-SUPER | CTRL N |
-| SQUARE | FCTN Q | 
-| ACCESS | CTRL Q |
-| STOP | FCTN 0 |
-| SHIFT-STOP | CTRL 0 | 
-| TERM | FCTN 3 |
-| &#215; | FCTN 8 |
-| SUB | FCTN B |
-| SHIFT-SUB | CTRL B |
-| SIGMA | FCTN + |
-| DELTA | FCTN - |
-| ASSIGN | FCTN 4 |
-| UNION | FCTN 7 |
-| INTERSECT | CTRL 7 |
+| SHIFT-NEXT | SHIFT ENTER |
+| SUPER | CTRL P |
+| SHIFT-SUPER | SHIFT CTRL P |
+| SQUARE | CTRL Q | 
+| ACCESS | SHIFT CTRL Q |
+| STOP | CTRL S |
+| SHIFT-STOP | SHIFT CTRL S | 
+| TERM | CTRL T |
+| &#215; | CTRL X |
+| SUB | CTRL Y |
+| SHIFT-SUB | SHIFT CTRL Y |
+| SIGMA | CTRL + |
+| DELTA | CTRL - |
+| ASSIGN | ESC |
+| UNION | SHIFT CTRL + |
+| INTERSECT | SHIFT CTRL - |
+
+TTY Mode Keys
+-------------
+In addition, the following keys are available in TTY mode:
+
+| Key | Function |
+|---  |---       |
+| F1 | PLATO Mode |
+| F2 | TTY Mode |
+| F10 | Quit |
+| BREAK | Hang Up |
+| CTRL D | Dial |
+| CTRL 3 | 300 Baud |
+| CTRL 1 | 1200 Baud |
+| CTRL 2 | 2400 Baud |
+| CTRL 6 | 9600 Baud |
+| CTRL 9 | 19200 Baud |
+| CTRL 8 | 38400 Baud |
+| SHIFT CTRL D | Edit Dial String |
+| SHIFT CTRL I | Edit Init String |
+
 
 Credits
 =======
 
 * '''Thomas Cherryhomes''' - Terminal coding, sleepless nights.
 * '''Steve Peltz''' - original PAD protocol decoder from MacPAD.
-* '''Ron Klein''' - Testing, testing, and more testing
-* '''Gregory McGill''' - Testing, keyboard mapping help
-* '''Tursi''' - libti99, and the needed rs232 routines
-* '''jedimatt42''' - TIPI support code.
-* '''insomniac''' - GCC for TI
+* '''Shaun Thompson''' - Testing, and toolchain guidance
