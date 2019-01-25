@@ -514,7 +514,7 @@ void screen_show_dial(void)
   int abort_dial=false;
   int i;
   
-  sprintf(tmp,"Dialing %s in 5 seconds...\r\n");
+  sprintf(tmp,"Dialing %s in 5 seconds...\r\n",config.dial_string);
   ShowPLATO(tmp,strlen(tmp));
   sprintf(tmp,"or any key to abort.");
   ShowPLATO(tmp,strlen(tmp));

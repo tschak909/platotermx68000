@@ -64,14 +64,10 @@ void config_set_defaults(void)
 void config_save(void)
 {
   int handle;
-  handle=_dos_open(CONFIG_FILE,2);
+  handle=_dos_create(CONFIG_FILE,0);
 
   if (handle<0)
-    {
-      handle=_dos_create(CONFIG_FILE,0);
-      if (handle<0)
-	return;
-    }
+    return;
 
   _dos_write(handle,(char *)&config,sizeof(ConfigInfo));
 
