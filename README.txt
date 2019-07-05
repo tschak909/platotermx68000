@@ -16,6 +16,7 @@ Requirements
 -   1MB of RAM
 -   31kHz display
 -   WIFI modem attached to RS-232-C port
+-   TMSIO serial port driver (http://retropc.net/x68000/software/system/rs232c/tmsio/)
 
   --------------------------------------------------------------
   What services are currently available to access via PLATOTerm?

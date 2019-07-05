@@ -17,6 +17,12 @@ extern ConfigInfo config;
 
 void main(void)
 {
+  /* check for TMSIO */
+  if(!(_iocs_set232c(-1)&0x40))
+  {        
+    _dos_print("TMSIO not installed!\n");
+    return;
+  }
   config_init();
   screen_init();
   touch_init();
